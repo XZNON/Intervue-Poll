@@ -37,7 +37,6 @@ This project is a full-stack real-time polling application.
 # Intervue Poll – Live Polling App
 
 ![Intervue Poll Screenshot 1]([https://github.com/your-username/your-repo-name/blob/main/path/to/screenshot1.png](https://github.com/XZNON/Intervue-Poll/blob/main/Screenshot%20(650).png))
-_Replace this placeholder image with a screenshot of your app's main polling view._
 
 ## 🚀 Overview
 
