@@ -3,6 +3,7 @@ import PollList from "./PollList";
 import PollHistory from "./PollHistory";
 import ParticipantsModal from "./ParticipantsModal";
 import { io } from "socket.io-client";
+import { API_BASE_URL } from "./config";
 
 const TIMER_OPTIONS = [30, 60, 90];
 
@@ -31,7 +32,7 @@ const TeacherPage = ({
 
   useEffect(() => {
     if (!socketRef.current) {
-      socketRef.current = io("http://localhost:9000");
+      socketRef.current = io(API_BASE_URL);
     }
     const socket = socketRef.current;
     socket.on("participantsUpdate", (list) => {
@@ -86,7 +87,7 @@ const TeacherPage = ({
   // Handler to start a new poll session
   const handleStartNewSession = async () => {
     setIsClearing(true);
-    await fetch("http://localhost:9000/api/polls", { method: "DELETE" });
+    await fetch(`${API_BASE_URL}/api/polls`, { method: "DELETE" });
     sessionStorage.setItem("role", "teacher");
     sessionStorage.setItem("hasContinued", "true");
     sessionStorage.setItem("pollEnded", "false");

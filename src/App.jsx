@@ -4,6 +4,7 @@ import LandingPage from "./LandingPage";
 import StudentNameEntry from "./StudentNameEntry";
 import TeacherPage from "./TeacherPage";
 import StudentPage from "./StudentPage";
+import { API_BASE_URL } from "./config";
 import "./App.css";
 
 function App() {
@@ -53,11 +54,11 @@ function App() {
 
   // Fetch polls from backend and set up Socket.IO
   useEffect(() => {
-    fetch("http://localhost:9000/api/polls")
+    fetch(`${API_BASE_URL}/api/polls`)
       .then((res) => res.json())
       .then((data) => setPolls(data));
 
-    const socket = io("http://localhost:9000");
+    const socket = io(API_BASE_URL);
     socketRef.current = socket;
     socket.on("pollCreated", (poll) => {
       setPolls((prev) => [...prev, poll]);
@@ -75,7 +76,7 @@ function App() {
 
   // Handle poll creation (for teacher)
   const handleCreatePoll = async ({ question, options, timer }) => {
-    const res = await fetch("http://localhost:9000/api/polls", {
+    const res = await fetch(`${API_BASE_URL}/api/polls`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -91,7 +92,7 @@ function App() {
   // Handle voting (for student)
   const handleVote = async (pollId, optionIndex) => {
     setVoting((prev) => ({ ...prev, [pollId]: true }));
-    const res = await fetch(`http://localhost:9000/api/polls/${pollId}/vote`, {
+    const res = await fetch(`${API_BASE_URL}/api/polls/${pollId}/vote`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ optionIndex }),

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import KickedPage from "./KickedPage";
+import { API_BASE_URL } from "./config";
 
 const Chat = ({ studentName, visible, onClose, participants = [] }) => {
   // Check sessionStorage for kicked flag
@@ -16,7 +17,7 @@ const Chat = ({ studentName, visible, onClose, participants = [] }) => {
   useEffect(() => {
     if (kicked || !visible) return;
     if (!socketRef.current) {
-      socketRef.current = io("http://localhost:9000", {
+      socketRef.current = io(API_BASE_URL, {
         autoConnect: true,
         reconnection: true,
       });

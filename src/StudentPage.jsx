@@ -3,6 +3,7 @@ import PollHistory from "./PollHistory";
 import Chat from "./Chat";
 import KickedPage from "./KickedPage";
 import { io } from "socket.io-client";
+import { API_BASE_URL } from "./config";
 
 const StudentPage = ({ polls, onVote, votedPolls, studentName, pollEnded }) => {
   // Find the first poll that hasn't been voted on
@@ -15,7 +16,7 @@ const StudentPage = ({ polls, onVote, votedPolls, studentName, pollEnded }) => {
 
   useEffect(() => {
     if (!socketRef.current) {
-      socketRef.current = io("http://localhost:9000");
+      socketRef.current = io(API_BASE_URL);
     }
     const socket = socketRef.current;
     socket.on("participantsUpdate", (list) => {
